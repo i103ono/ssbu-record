@@ -1,0 +1,524 @@
+[
+  {
+    "name": "マリオ",
+    "file": "mario",
+    "yomi": "まりお",
+    "romaji": "まりお"
+  },
+  {
+    "name": "ドンキーコング",
+    "file": "donkey",
+    "yomi": "どんきーこんぐ",
+    "romaji": "どんきーこんぐ"
+  },
+  {
+    "name": "リンク",
+    "file": "link",
+    "yomi": "りんく",
+    "romaji": "りんく"
+  },
+  {
+    "name": "サムス",
+    "file": "samus",
+    "yomi": "さむす",
+    "romaji": "さむす"
+  },
+  {
+    "name": "ダークサムス",
+    "file": "darksamus",
+    "yomi": "だーくさむす",
+    "romaji": "だーくさむす"
+  },
+  {
+    "name": "ヨッシー",
+    "file": "yoshi",
+    "yomi": "よっしー",
+    "romaji": "よっしー"
+  },
+  {
+    "name": "カービィ",
+    "file": "kirby",
+    "yomi": "かーびぃ",
+    "romaji": "かーびぃ"
+  },
+  {
+    "name": "フォックス",
+    "file": "fox",
+    "yomi": "ふぉっくす",
+    "romaji": "ふぉっくす"
+  },
+  {
+    "name": "ピカチュウ",
+    "file": "pikachu",
+    "yomi": "ぴかちゅう",
+    "romaji": "ぴかちゅう"
+  },
+  {
+    "name": "ルイージ",
+    "file": "luigi",
+    "yomi": "るいーじ",
+    "romaji": "るいーじ"
+  },
+  {
+    "name": "ネス",
+    "file": "ness",
+    "yomi": "ねす",
+    "romaji": "ねす"
+  },
+  {
+    "name": "キャプテン・ファルコン",
+    "file": "captain",
+    "yomi": "きゃぷてん・ふぁるこん",
+    "romaji": "きゃぷてん・ふぁるこん"
+  },
+  {
+    "name": "プリン",
+    "file": "purin",
+    "yomi": "ぷりん",
+    "romaji": "ぷりん"
+  },
+  {
+    "name": "ピーチ",
+    "file": "peach",
+    "yomi": "ぴーち",
+    "romaji": "ぴーち"
+  },
+  {
+    "name": "デイジー",
+    "file": "daisy",
+    "yomi": "でいじー",
+    "romaji": "でいじー"
+  },
+  {
+    "name": "クッパ",
+    "file": "koopa",
+    "yomi": "くっぱ",
+    "romaji": "くっぱ"
+  },
+  {
+    "name": "アイスクライマー",
+    "file": "ice_climber",
+    "yomi": "あいすくらいまー",
+    "romaji": "あいすくらいまー"
+  },
+  {
+    "name": "シーク",
+    "file": "sheik",
+    "yomi": "しーく",
+    "romaji": "しーく"
+  },
+  {
+    "name": "ゼルダ",
+    "file": "zelda",
+    "yomi": "ぜるだ",
+    "romaji": "ぜるだ"
+  },
+  {
+    "name": "ドクターマリオ",
+    "file": "doctor_mario",
+    "yomi": "どくたーまりお",
+    "romaji": "どくたーまりお"
+  },
+  {
+    "name": "ピチュー",
+    "file": "pichu",
+    "yomi": "ぴちゅー",
+    "romaji": "ぴちゅー"
+  },
+  {
+    "name": "ファルコ",
+    "file": "falco",
+    "yomi": "ふぁるこ",
+    "romaji": "ふぁるこ"
+  },
+  {
+    "name": "マルス",
+    "file": "marth",
+    "yomi": "まるす",
+    "romaji": "まるす"
+  },
+  {
+    "name": "ルキナ",
+    "file": "lucina",
+    "yomi": "るきな",
+    "romaji": "るきな"
+  },
+  {
+    "name": "こどもリンク",
+    "file": "younglink",
+    "yomi": "こどもりんく",
+    "romaji": "こどもりんく"
+  },
+  {
+    "name": "ガノンドロフ",
+    "file": "ganon",
+    "yomi": "がのんどろふ",
+    "romaji": "がのんどろふ"
+  },
+  {
+    "name": "ミュウツー",
+    "file": "mewtwo",
+    "yomi": "みゅうつー",
+    "romaji": "みゅうつー"
+  },
+  {
+    "name": "ロイ",
+    "file": "roy",
+    "yomi": "ろい",
+    "romaji": "ろい"
+  },
+  {
+    "name": "クロム",
+    "file": "chrom",
+    "yomi": "くろむ",
+    "romaji": "くろむ"
+  },
+  {
+    "name": "Mr.ゲーム＆ウォッチ",
+    "file": "gamewatch",
+    "yomi": "Mr.げーむ＆うぉっち",
+    "romaji": "mr.げーむ&うぉっち"
+  },
+  {
+    "name": "メタナイト",
+    "file": "metaknight",
+    "yomi": "めたないと",
+    "romaji": "めたないと"
+  },
+  {
+    "name": "ピット",
+    "file": "pit",
+    "yomi": "ぴっと",
+    "romaji": "ぴっと"
+  },
+  {
+    "name": "ブラックピット",
+    "file": "blackpit",
+    "yomi": "ぶらっくぴっと",
+    "romaji": "ぶらっくぴっと"
+  },
+  {
+    "name": "ゼロスーツサムス",
+    "file": "zerosuitsamus",
+    "yomi": "ぜろすーつさむす",
+    "romaji": "ぜろすーつさむす"
+  },
+  {
+    "name": "ワリオ",
+    "file": "wario",
+    "yomi": "わりお",
+    "romaji": "わりお"
+  },
+  {
+    "name": "スネーク",
+    "file": "snake",
+    "yomi": "すねーく",
+    "romaji": "すねーく"
+  },
+  {
+    "name": "アイク",
+    "file": "ike",
+    "yomi": "あいく",
+    "romaji": "あいく"
+  },
+  {
+    "name": "ポケモントレーナー",
+    "file": "pokemontrainer",
+    "yomi": "ぽけもんとれーなー",
+    "romaji": "ぽけもんとれーなー"
+  },
+  {
+    "name": "ディディーコング",
+    "file": "diddy",
+    "yomi": "でぃでぃーこんぐ",
+    "romaji": "でぃでぃーこんぐ"
+  },
+  {
+    "name": "リュカ",
+    "file": "lucas",
+    "yomi": "りゅか",
+    "romaji": "りゅか"
+  },
+  {
+    "name": "ソニック",
+    "file": "sonic",
+    "yomi": "そにっく",
+    "romaji": "そにっく"
+  },
+  {
+    "name": "キングデデデ",
+    "file": "dedede",
+    "yomi": "きんぐででで",
+    "romaji": "きんぐででで"
+  },
+  {
+    "name": "オリマー",
+    "file": "pikmin",
+    "yomi": "おりまー",
+    "romaji": "おりまー"
+  },
+  {
+    "name": "ルカリオ",
+    "file": "lucario",
+    "yomi": "るかりお",
+    "romaji": "るかりお"
+  },
+  {
+    "name": "ロボット",
+    "file": "robot",
+    "yomi": "ろぼっと",
+    "romaji": "ろぼっと"
+  },
+  {
+    "name": "トゥーンリンク",
+    "file": "toonlink",
+    "yomi": "とぅーんりんく",
+    "romaji": "とぅーんりんく"
+  },
+  {
+    "name": "ウルフ",
+    "file": "wolf",
+    "yomi": "うるふ",
+    "romaji": "うるふ"
+  },
+  {
+    "name": "むらびと",
+    "file": "murabito",
+    "yomi": "むらびと",
+    "romaji": "むらびと"
+  },
+  {
+    "name": "ロックマン",
+    "file": "rockman",
+    "yomi": "ろっくまん",
+    "romaji": "ろっくまん"
+  },
+  {
+    "name": "Wii Fit トレーナー",
+    "file": "wiifit",
+    "yomi": "Wii Fit とれーなー",
+    "romaji": "wiifitとれーなー"
+  },
+  {
+    "name": "ロゼッタ＆チコ",
+    "file": "rosetta",
+    "yomi": "ろぜった＆ちこ",
+    "romaji": "ろぜった&ちこ"
+  },
+  {
+    "name": "リトルマック",
+    "file": "littlemac",
+    "yomi": "りとるまっく",
+    "romaji": "りとるまっく"
+  },
+  {
+    "name": "ゲッコウガ",
+    "file": "gekkouga",
+    "yomi": "げっこうが",
+    "romaji": "げっこうが"
+  },
+  {
+    "name": "パルテナ",
+    "file": "palutena",
+    "yomi": "ぱるてな",
+    "romaji": "ぱるてな"
+  },
+  {
+    "name": "パックマン",
+    "file": "pacman",
+    "yomi": "ぱっくまん",
+    "romaji": "ぱっくまん"
+  },
+  {
+    "name": "ルフレ",
+    "file": "reflet",
+    "yomi": "るふれ",
+    "romaji": "るふれ"
+  },
+  {
+    "name": "シュルク",
+    "file": "shulk",
+    "yomi": "しゅるく",
+    "romaji": "しゅるく"
+  },
+  {
+    "name": "クッパJr.",
+    "file": "koopajr",
+    "yomi": "くっぱJr.",
+    "romaji": "くっぱjr."
+  },
+  {
+    "name": "ダックハント",
+    "file": "duckhunt",
+    "yomi": "だっくはんと",
+    "romaji": "だっくはんと"
+  },
+  {
+    "name": "リュウ",
+    "file": "ryu",
+    "yomi": "りゅう",
+    "romaji": "りゅう"
+  },
+  {
+    "name": "ケン",
+    "file": "ken",
+    "yomi": "けん",
+    "romaji": "けん"
+  },
+  {
+    "name": "クラウド",
+    "file": "cloud",
+    "yomi": "くらうど",
+    "romaji": "くらうど"
+  },
+  {
+    "name": "カムイ",
+    "file": "kamui",
+    "yomi": "かむい",
+    "romaji": "かむい"
+  },
+  {
+    "name": "ベヨネッタ",
+    "file": "bayonetta",
+    "yomi": "べよねった",
+    "romaji": "べよねった"
+  },
+  {
+    "name": "インクリング",
+    "file": "inkling",
+    "yomi": "いんくりんぐ",
+    "romaji": "いんくりんぐ"
+  },
+  {
+    "name": "リドリー",
+    "file": "ridley",
+    "yomi": "りどりー",
+    "romaji": "りどりー"
+  },
+  {
+    "name": "シモン",
+    "file": "simon",
+    "yomi": "しもん",
+    "romaji": "しもん"
+  },
+  {
+    "name": "リヒター",
+    "file": "richter",
+    "yomi": "りひたー",
+    "romaji": "りひたー"
+  },
+  {
+    "name": "キングクルール",
+    "file": "krool",
+    "yomi": "きんぐくるーる",
+    "romaji": "きんぐくるーる"
+  },
+  {
+    "name": "しずえ",
+    "file": "shizue",
+    "yomi": "しずえ",
+    "romaji": "しずえ"
+  },
+  {
+    "name": "ガオガエン",
+    "file": "gaogaen",
+    "yomi": "がおがえん",
+    "romaji": "がおがえん"
+  },
+  {
+    "name": "パックンフラワー",
+    "file": "packun",
+    "yomi": "ぱっくんふらわー",
+    "romaji": "ぱっくんふらわー"
+  },
+  {
+    "name": "ジョーカー",
+    "file": "jack",
+    "yomi": "じょーかー",
+    "romaji": "じょーかー"
+  },
+  {
+    "name": "勇者",
+    "file": "brave",
+    "yomi": "ゆうしゃ",
+    "romaji": "ゆうしゃ"
+  },
+  {
+    "name": "バンジョー＆カズーイ",
+    "file": "buddy",
+    "yomi": "ばんじょー＆かずーい",
+    "romaji": "ばんじょー&かずーい"
+  },
+  {
+    "name": "テリー",
+    "file": "dolly",
+    "yomi": "てりー",
+    "romaji": "てりー"
+  },
+  {
+    "name": "ベレト",
+    "file": "beleto",
+    "yomi": "べれと",
+    "romaji": "べれと"
+  },
+  {
+    "name": "ミェンミェン",
+    "file": "tantan",
+    "yomi": "みぇんみぇん",
+    "romaji": "みぇんみぇん"
+  },
+  {
+    "name": "スティーブ",
+    "file": "steeb",
+    "yomi": "すてぃーぶ",
+    "romaji": "すてぃーぶ"
+  },
+  {
+    "name": "セフィロス",
+    "file": "sephiroth",
+    "yomi": "せふぃろす",
+    "romaji": "せふぃろす"
+  },
+  {
+    "name": "ホムラ",
+    "file": "homura",
+    "yomi": "ほむら",
+    "romaji": "ほむら"
+  },
+  {
+    "name": "ヒカリ",
+    "file": "hikari",
+    "yomi": "ひかり",
+    "romaji": "ひかり"
+  },
+  {
+    "name": "カズヤ",
+    "file": "kazuya",
+    "yomi": "かずや",
+    "romaji": "かずや"
+  },
+  {
+    "name": "ソラ",
+    "file": "sora",
+    "yomi": "そら",
+    "romaji": "そら"
+  },
+  {
+    "name": "格闘Mii",
+    "file": "miifighter",
+    "yomi": "かくとうMii",
+    "romaji": "かくとうmii"
+  },
+  {
+    "name": "剣術Mii",
+    "file": "miiswordsman",
+    "yomi": "けんじゅつMii",
+    "romaji": "けんじゅつmii"
+  },
+  {
+    "name": "射撃Mii",
+    "file": "miigunner",
+    "yomi": "しゃげきMii",
+    "romaji": "しゃげきmii"
+  }
+]

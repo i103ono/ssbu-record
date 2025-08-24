@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>記録一覧</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; max-width: 600px; margin: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #aaa; padding: 5px; text-align: center; }
+    th { background: #f0f0f0; }
+    button { margin-top: 10px; padding: 5px 10px; }
+    .button-group { display: flex; justify-content: space-between; gap: 10px; }
+  </style>
+</head>
+<body>
+  <h2>📋 スマブラ記録一覧</h2>
+
+  <table id="recordTable">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>使用キャラ</th>
+        <th>対戦キャラ</th>
+        <th>勝敗</th>
+        <th>連勝中</th>
+        <th>世界戦闘力</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="button-group">
+    <button onclick="goBack()">← 戻る</button>
+    <button onclick="downloadCSV()">⬇️ CSVダウンロード</button>
+  </div>
+
+  <script>
+    function loadRecords() {
+      const history = JSON.parse(localStorage.getItem("records") || "[]");
+      const tableBody = document.querySelector("#recordTable tbody");
+      tableBody.innerHTML = "";
+
+      history.forEach(rec => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${rec.date || ""}</td>
+          <td>${rec.myChar || ""}</td>
+          <td>${rec.enemyChar || ""}</td>
+          <td>${rec.result === "win" ? "勝利" : (rec.result === "lose" ? "敗北" : "")}</td>
+          <td>${rec.streak ? "〇" : "×"}</td>
+          <td>${rec.startPower || ""}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function goBack() {
+      history.back();
+    }
+
+    function downloadCSV() {
+      const records = JSON.parse(localStorage.getItem("records") || "[]");
+      if (records.length === 0) {
+        alert("記録がありません。");
+        return;
+      }
+
+      const header = ["日付", "使用キャラ", "対戦キャラ", "勝敗", "連勝中", "世界戦闘力"];
+      const rows = records.map(r => [
+        r.date || "",
+        r.myChar || "",
+        r.enemyChar || "",
+        r.result === "win" ? "勝利" : (r.result === "lose" ? "敗北" : ""),
+        r.streak ? "〇" : "×",
+        r.startPower || ""
+      ]);
+
+      const csvContent = [header, ...rows].map(e => e.join(",")).join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "smash_record.csv";
+      link.click();
+    }
+
+    window.onload = loadRecords;
+  </script>
+</body>
+</html>

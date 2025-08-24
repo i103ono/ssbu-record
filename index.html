@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スマブラ戦績記録</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; max-width: 400px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    select, input, button { width: 100%; padding: 5px; margin-top: 5px; }
+    .button-group { display: flex; justify-content: space-between; margin-top: 10px; }
+    .button-group button { width: 48%; }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .character-icon {
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .character-icon img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .character-icon.selected {
+      border-color: blue;
+      background-color: #eef;
+    }
+
+    .selected-win {
+      background-color: #c8f7c5;
+      border: 2px solid green;
+    }
+    .selected-lose {
+      background-color: #f7c5c5;
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h2>スマブラ勝敗記録</h2>
+
+  <label>日付</label>
+  <input type="date" id="date" value="" />
+
+  <label>使用キャラ</label>
+  <input type="text" id="myCharacterSearch" placeholder="キャラ名で検索" />
+  <div id="myCharacterIcons" class="icon-grid"></div>
+
+  <label>開始時 世界戦闘力</label>
+  <input type="number" id="startPower" placeholder="例: 9000000" />
+
+  <button style="width: 100%;", onclick="saveTempRecordAndNext()">開始</button>
+
+  <script>
+    let selectedMyChar = "";
+    let selectedEnemyChar = "";
+    let allCharacters = [];
+  
+    // 使用キャラの表示
+    function renderMyCharacterIcons(filteredList) {
+      const container = document.getElementById("myCharacterIcons");
+      container.innerHTML = "";
+  
+      filteredList.forEach(({ name, file }) => {
+        const div = document.createElement("div");
+        div.className = "character-icon";
+        div.innerHTML = `<img src="icons/${file}.png" alt="${name}"><div>${name}</div>`;
+        div.onclick = () => {
+          selectedMyChar = name;
+          document.querySelectorAll("#myCharacterIcons .character-icon").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        container.appendChild(div);
+      });
+    }
+  
+    // 初回ロード（キャラ読み込み）
+    async function loadCharacters() {
+      const response = await fetch("characters.json");
+      allCharacters = await response.json();
+  
+      renderMyCharacterIcons(allCharacters);
+      renderEnemyCharacterIcons(allCharacters);
+    }
+  
+    // 検索バーイベント
+    document.getElementById("myCharacterSearch").addEventListener("input", (e) => {
+      const keyword = e.target.value.trim();
+      const filtered = filterCharacters(keyword);
+      renderMyCharacterIcons(filtered);
+    });
+
+    function filterCharacters(keyword) {
+      const normalized = keyword.toLowerCase();
+      return allCharacters.filter(({ name, yomi, romaji }) => {
+        return (
+          name.includes(keyword) ||
+          (yomi && yomi.includes(keyword)) ||
+          (romaji && romaji.toLowerCase().includes(normalized))
+        );
+      });
+    }
+
+    function goToBattle() {
+      const myChar = selectedMyChar;
+      const startPower = document.getElementById("startPower").value;
+      const date = document.getElementById("date").value;
+
+      const temp = {
+        myChar,
+        startPower,
+        date
+      };
+      localStorage.setItem("tempRecord", JSON.stringify(temp));
+      window.location.href = "battle.html";
+    }
+
+  function saveTempRecordAndNext() {
+    const startPower = document.getElementById("startPower").value;
+    const date = document.getElementById("date").value;
+
+    if (!selectedMyChar || !startPower || !date) {
+      alert("すべての項目を入力・選択してください。");
+      return;
+    }
+
+    const tempRecord = {
+      myChar: selectedMyChar,
+      startPower: startPower,
+      date: date
+    };
+
+    localStorage.setItem("tempRecord", JSON.stringify(tempRecord));
+    window.location.href = "battle.html";
+  }
+
+
+    // DOM要素取得
+    const dateInput = document.getElementById("date");
+    const streakCheck = document.getElementById("streak");
+    const winBtn = document.getElementById("winBtn");
+    const loseBtn = document.getElementById("loseBtn");
+
+    window.onload = () => {
+      loadCharacters();
+      dateInput.valueAsDate = new Date();
+    };
+
+
+  </script>
+  
+
+  <hr>
+  <a href="record.html">
+    <button style="width: 100%;">📋 記録一覧を見る</button>
+  </a>
+</body>
+</html>

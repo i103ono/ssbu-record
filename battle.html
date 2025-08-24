@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スマブラ戦績記録</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; max-width: 400px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    select, input, button { width: 100%; padding: 5px; margin-top: 5px; }
+    .button-group { display: flex; justify-content: space-between; margin-top: 10px; }
+    .button-group button { width: 48%; }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .character-icon {
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .character-icon img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .character-icon.selected {
+      border-color: blue;
+      background-color: #eef;
+    }
+
+    .selected-win {
+      background-color: #c8f7c5;
+      border: 2px solid green;
+    }
+    .selected-lose {
+      background-color: #f7c5c5;
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h2>スマブラ勝敗記録</h2>
+
+  <!-- <label>日付</label>
+  <input type="date" id="date" value="" /> -->
+
+  <!-- <label>使用キャラ</label>
+  <input type="text" id="myCharacterSearch" placeholder="キャラ名で検索" />
+  <div id="myCharacterIcons" class="icon-grid"></div> -->
+
+  <!-- <label>開始時 世界戦闘力</label>
+  <input type="number" id="startPower" placeholder="例: 9000000" /> -->
+
+  <label>対戦キャラ</label>
+  <input type="text" id="enemyCharacterSearch" placeholder="キャラ名で検索" />
+  <div id="enemyCharacterIcons" class="icon-grid"></div>
+
+  <label>勝敗</label>
+  <div class="button-group">
+    <button id="winBtn" onclick="setResult('win')">勝利</button>
+    <button id="loseBtn" onclick="setResult('lose')">敗北</button>
+  </div>
+
+  <label>
+    連勝中
+    <input type="checkbox" id="streak" />
+  </label>
+
+  <button onclick="saveRecord()">記録</button>
+
+  <script>
+    let selectedEnemyChar = "";
+    let allCharacters = [];
+  
+    // 対戦キャラの表示
+    function renderEnemyCharacterIcons(filteredList) {
+      const container = document.getElementById("enemyCharacterIcons");
+      container.innerHTML = "";
+  
+      filteredList.forEach(({ name, file }) => {
+        const div = document.createElement("div");
+        div.className = "character-icon";
+        div.innerHTML = `<img src="icons/${file}.png" alt="${name}"><div>${name}</div>`;
+        div.onclick = () => {
+          selectedEnemyChar = name;
+          document.querySelectorAll("#enemyCharacterIcons .character-icon").forEach(el => el.classList.remove("selected"));
+          div.classList.add("selected");
+        };
+        container.appendChild(div);
+      });
+    }
+  
+    // 初回ロード（キャラ読み込み）
+    async function loadCharacters() {
+      const response = await fetch("characters.json");
+      allCharacters = await response.json();
+  
+    //   renderMyCharacterIcons(allCharacters);
+      renderEnemyCharacterIcons(allCharacters);
+    }
+  
+
+    document.getElementById("enemyCharacterSearch").addEventListener("input", (e) => {
+      const keyword = e.target.value.trim();
+      const filtered = filterCharacters(keyword);
+      renderEnemyCharacterIcons(filtered);
+    });
+
+    function filterCharacters(keyword) {
+      const normalized = keyword.toLowerCase();
+      return allCharacters.filter(({ name, yomi, romaji }) => {
+        return (
+          name.includes(keyword) ||
+          (yomi && yomi.includes(keyword)) ||
+          (romaji && romaji.toLowerCase().includes(normalized))
+        );
+      });
+    }
+
+  
+    // DOM要素取得
+    const dateInput = document.getElementById("date");
+    const streakCheck = document.getElementById("streak");
+    const winBtn = document.getElementById("winBtn");
+    const loseBtn = document.getElementById("loseBtn");
+  
+    let result = ""; // 勝敗記録用
+  
+    window.onload = () => {
+      loadCharacters();
+      dateInput.valueAsDate = new Date();
+    };
+  
+    function setResult(val) {
+      result = val;
+      winBtn.classList.remove("selected-win");
+      loseBtn.classList.remove("selected-lose");
+      if (val === "win") {
+        winBtn.classList.add("selected-win");
+      } else {
+        loseBtn.classList.add("selected-lose");
+      }
+    }
+
+
+    function saveRecord() {
+        const tempRecord = JSON.parse(localStorage.getItem("tempRecord") || "{}");
+
+        const record = {
+            date: tempRecord.date || "",
+            myChar: tempRecord.myChar || "",
+            startPower: tempRecord.startPower || "",
+            enemyChar: selectedEnemyChar,
+            result: result,
+            streak: streakCheck.checked
+        };
+
+        const history = JSON.parse(localStorage.getItem('records') || "[]");
+        history.push(record);
+        localStorage.setItem('records', JSON.stringify(history));
+
+        alert("記録しました！");
+        window.location.href = "record.html";
+
+        fetch("https://script.google.com/macros/s/AKfycbx2_4JLKDwZYaWpeyzfBH16ASa_jvuc3Hfi_hBexDLL4Kju-UYf-Rg2h5gWoV-NX_fm/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(record)
+        })
+        .then(res => res.text())
+        .then(msg => console.log("GAS保存結果:", msg))
+        .catch(err => console.error("GAS送信失敗:", err));
+    }    
+
+  </script>
+  
+
+  <hr>
+  <a href="record.html">
+    <button style="width: 100%;">📋 記録一覧を見る</button>
+  </a>
+</body>
+</html>
