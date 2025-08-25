@@ -86,110 +86,118 @@
   <script>
     let selectedEnemyChar = "";
     let allCharacters = [];
-  
+
     // 対戦キャラの表示
     function renderEnemyCharacterIcons(filteredList) {
-      const container = document.getElementById("enemyCharacterIcons");
-      container.innerHTML = "";
-  
-      filteredList.forEach(({ name, file }) => {
+        const container = document.getElementById("enemyCharacterIcons");
+        container.innerHTML = "";
+
+        filteredList.forEach(({ name, file }) => {
         const div = document.createElement("div");
         div.className = "character-icon";
         div.innerHTML = `<img src="icons/${file}.png" alt="${name}"><div>${name}</div>`;
         div.onclick = () => {
-          selectedEnemyChar = name;
-          document.querySelectorAll("#enemyCharacterIcons .character-icon").forEach(el => el.classList.remove("selected"));
-          div.classList.add("selected");
+            selectedEnemyChar = name;
+            document.querySelectorAll("#enemyCharacterIcons .character-icon").forEach(el => el.classList.remove("selected"));
+            div.classList.add("selected");
         };
         container.appendChild(div);
-      });
+        });
     }
-  
+
     // 初回ロード（キャラ読み込み）
     async function loadCharacters() {
-      const response = await fetch("characters.json");
-      allCharacters = await response.json();
-  
-    //   renderMyCharacterIcons(allCharacters);
-      renderEnemyCharacterIcons(allCharacters);
+        const response = await fetch("characters.json");
+        allCharacters = await response.json();
+        renderEnemyCharacterIcons(allCharacters);
     }
-  
 
     document.getElementById("enemyCharacterSearch").addEventListener("input", (e) => {
-      const keyword = e.target.value.trim();
-      const filtered = filterCharacters(keyword);
-      renderEnemyCharacterIcons(filtered);
+        const keyword = e.target.value.trim();
+        const filtered = filterCharacters(keyword);
+        renderEnemyCharacterIcons(filtered);
     });
 
     function filterCharacters(keyword) {
-      const normalized = keyword.toLowerCase();
-      return allCharacters.filter(({ name, yomi, romaji }) => {
+        const normalized = keyword.toLowerCase();
+        return allCharacters.filter(({ name, yomi, romaji }) => {
         return (
-          name.includes(keyword) ||
-          (yomi && yomi.includes(keyword)) ||
-          (romaji && romaji.toLowerCase().includes(normalized))
+            name.includes(keyword) ||
+            (yomi && yomi.includes(keyword)) ||
+            (romaji && romaji.toLowerCase().includes(normalized))
         );
-      });
+        });
     }
 
-  
-    // DOM要素取得
-    const dateInput = document.getElementById("date");
+    // DOM要素取得（※このページには dateInput は無いので取得しない）
     const streakCheck = document.getElementById("streak");
     const winBtn = document.getElementById("winBtn");
     const loseBtn = document.getElementById("loseBtn");
-  
+
     let result = ""; // 勝敗記録用
-  
+
     window.onload = () => {
-      loadCharacters();
-      dateInput.valueAsDate = new Date();
+        loadCharacters();
     };
-  
+
     function setResult(val) {
-      result = val;
-      winBtn.classList.remove("selected-win");
-      loseBtn.classList.remove("selected-lose");
-      if (val === "win") {
+        result = val;
+        winBtn.classList.remove("selected-win");
+        loseBtn.classList.remove("selected-lose");
+        if (val === "win") {
         winBtn.classList.add("selected-win");
-      } else {
+        } else {
         loseBtn.classList.add("selected-lose");
-      }
+        }
     }
 
+    // ★ GASに送る（no-cors + keepalive）
+    function sendToSheet(record) {
+        const url = "https://script.google.com/macros/s/AKfycbwSgeo5WlnT4Hk-5GBv8YKX6BHANpJmC9MuXWkmwb3l69ocdjxe4DRsP28jXh2V2Huq/exec"; // /exec
+
+        const params = new URLSearchParams({
+        date: record.date ?? "",
+        myChar: record.myChar ?? "",
+        enemyChar: record.enemyChar ?? "",
+        result: record.result ?? "",
+        streak: String(record.streak ?? false),
+        startPower: String(record.startPower ?? "")
+        });
+
+        // レスポンスは読まない運用（プリフライト回避＆遷移許容）
+        fetch(url, { method: "POST", body: params, mode: "no-cors", keepalive: true })
+        .then(() => console.log("GASへ送信リクエストを送出(no-cors)"))
+        .catch(err => console.error("GAS送信失敗:", err));
+    }
 
     function saveRecord() {
         const tempRecord = JSON.parse(localStorage.getItem("tempRecord") || "{}");
 
         const record = {
-            date: tempRecord.date || "",
-            myChar: tempRecord.myChar || "",
-            startPower: tempRecord.startPower || "",
-            enemyChar: selectedEnemyChar,
-            result: result,
-            streak: streakCheck.checked
+        date: tempRecord.date || "",
+        myChar: tempRecord.myChar || "",
+        startPower: tempRecord.startPower || "",
+        enemyChar: selectedEnemyChar,
+        result: result,
+        streak: streakCheck.checked
         };
 
+        // ローカル保存
         const history = JSON.parse(localStorage.getItem('records') || "[]");
         history.push(record);
         localStorage.setItem('records', JSON.stringify(history));
 
+        // 先に送信をキック
+        sendToSheet(record);
+
+        // 少し余裕を持って画面遷移（送信中でも完了しやすい）
+        setTimeout(() => {
         alert("記録しました！");
         window.location.href = "record.html";
-
-        fetch("https://script.google.com/macros/s/AKfycbx2_4JLKDwZYaWpeyzfBH16ASa_jvuc3Hfi_hBexDLL4Kju-UYf-Rg2h5gWoV-NX_fm/exec", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(record)
-        })
-        .then(res => res.text())
-        .then(msg => console.log("GAS保存結果:", msg))
-        .catch(err => console.error("GAS送信失敗:", err));
-    }    
-
+        }, 150);
+    }
   </script>
+
   
 
   <hr>
@@ -198,3 +206,26 @@
   </a>
 </body>
 </html>
+
+<!-- const url = "https://script.google.com/macros/s/AKfycbwSgeo5WlnT4Hk-5GBv8YKX6BHANpJmC9MuXWkmwb3l69ocdjxe4DRsP28jXh2V2Huq/exec"; // /exec
+
+const params = new URLSearchParams({
+  date: "2025-08-24",
+  myChar: "マリオ",
+  enemyChar: "ルイージ",
+  result: "win",
+  streak: "true",
+  startPower: "9000000"
+});
+
+fetch(url, {
+  method: "POST",
+  body: params,
+  mode: "no-cors"           // ← これがポイント
+})
+.then(() => {
+  // no-cors なのでレスポンスは読めません（opaque）
+  console.log("送信リクエストはブラウザから出ました。シート側で確認してください。");
+})
+.catch(err => console.error("送信エラー:", err)); -->
+
